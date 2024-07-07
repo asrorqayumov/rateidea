@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:rate-ideas": "node dist/rate-ideas/server/server.mjs",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "format:check": "prettier --check ."
   },
   "lint-staged": {
     "**/*.{js,ts,html,scss}": [
