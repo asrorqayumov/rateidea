@@ -3,12 +3,48 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: GilroySemibold !important;
+  src: url(../public/fonts/gilroy-semibold.ttf);
+}
+
 html,
 body {
   height: 100%;
 }
 
+.font-gilroy {
+  font-family: GilroySemibold !important;
+}
+
+.text-main {
+  color: #101828 !important;
+}
+
 body {
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  @extend .font-gilroy;
+}
+
+.custom-mat-tab {
+  .mdc-tab__ripple {
+    display: none !important;
+  }
+
+  .mat-mdc-tab {
+    border-radius: 40px !important;
+    cursor: pointer;
+
+    &.mdc-tab--active {
+      background: #f2f4f7 !important;
+    }
+
+    .mdc-tab__text-label {
+      @extend .text-main;
+    }
+
+    .mdc-tab-indicator {
+      display: none !important;
+    }
+  }
 }

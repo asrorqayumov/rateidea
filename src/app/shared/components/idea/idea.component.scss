@@ -1,0 +1,12 @@
+.card {
+  @apply flex flex-col gap-2 w-full overflow-hidden bg-white p-6 rounded-[14px] border border-gray-200;
+  transition: max-height 0.4s;
+
+  &.opened {
+    max-height: 340px;
+  }
+
+  &.closed {
+    max-height: 96px;
+  }
+}
