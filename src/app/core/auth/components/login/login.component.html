@@ -1,1 +1,56 @@
-<p>login works!</p>
+<div class="relative w-full h-full grid lg:grid-cols-2 max-lg-screen:grid-cols-1">
+  <div class="z-20 flex justify-center items-center flex-col">
+    <div class="w-[70%] flex justify-start">
+      <h1 class="!text-4xl !mb-7">Log into your account</h1>
+    </div>
+    <form class="w-[70%]">
+      <mat-form-field class="w-full">
+        <mat-label>Email or username</mat-label>
+        <input matInput type="text" />
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="**********" type="password" />
+      </mat-form-field>
+      <div class="w-full flex justify-end mb-[22px]">
+        <a class="no-underline text-blue-600" href="#">Forgot password</a>
+      </div>
+
+      <button class="w-full" color="primary" mat-flat-button>Login</button>
+
+      <p class="w-full flex justify-center !mt-[22px]">
+        Don't you have an account?
+        <a class="no-underline text-blue-600" routerLink="/signup"> Sign up</a>
+      </p>
+    </form>
+  </div>
+  <div class="z-20 bg-[url(../public/images/signup.svg)] bg-center bg-no-repeat bg-cover rounded-[29px]"></div>
+
+  <svg
+    class="absolute z-10 h-full top-[50%] left-[55%] -translate-y-[50%] -translate-x-[40%]"
+    fill="none"
+    height="1068"
+    viewBox="0 0 1080 1068"
+    width="1080"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M716.228 0L716.227 1080M425.21 0L425.21 1080M134.192 0L134.192 1080M1080 237.665L0 237.665M1080 528.683L0 528.683M861.737 0L861.736 1080M570.719 0L570.719 1080M279.701 0L279.701 1080M1080 383.174L0 383.174M1080 674.192L0 674.192M764.731 0L764.73 1080M473.713 0L473.713 1080M182.695 0L182.695 1080M1080 286.168L0 286.168M1080 577.186L0 577.186M910.24 0L910.239 1080M619.222 0L619.222 1080M328.204 0L328.204 1080M1080 431.677L0 431.677M1080 722.695L0 722.695M813.234 0L813.233 1080M522.216 0L522.216 1080M231.198 0L231.198 1080M1080 334.671L0 334.671M1080 625.689L0 625.689M958.743 0L958.742 1080M667.725 0L667.724 1080M376.707 0L376.707 1080M1080 480.18L0 480.18M1080 771.198L0 771.197"
+      stroke="url(#paint0_radial_49_1173)"
+    />
+    <defs>
+      <radialGradient
+        cx="0"
+        cy="0"
+        gradientTransform="translate(540 540) rotate(90) scale(540)"
+        gradientUnits="userSpaceOnUse"
+        id="paint0_radial_49_1173"
+        r="1"
+      >
+        <stop stop-color="#C4C4C4" />
+        <stop offset="1" stop-color="#5C5C5C" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+  </svg>
+</div>

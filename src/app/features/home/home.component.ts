@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
-import { IdeaComponent } from '../../shared/components/idea/idea.component';
+import { NavbarComponent } from '@core/components/navbar/navbar.component';
+import { IdeaComponent } from '@shared/components/idea/idea.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatTabsModule, IdeaComponent],
+  imports: [MatTabsModule, IdeaComponent, NavbarComponent],
   templateUrl: './home.component.html',
   styles: ``,
 })
