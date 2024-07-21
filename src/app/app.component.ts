@@ -7,6 +7,11 @@ import { NavbarComponent } from './core/components/navbar/navbar.component';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, MatButtonModule, NavbarComponent],
-  template: ` <app-navbar /> `,
+  template: `
+    <main class="p-5">
+      <app-navbar />
+      <router-outlet></router-outlet>
+    </main>
+  `,
 })
 export class AppComponent {}
