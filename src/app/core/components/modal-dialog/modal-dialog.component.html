@@ -1,0 +1,143 @@
+@if (data.clickedPlace === 'acc') {
+  <div class="modal w-[400px] py-8 px-6">
+    <div class="flex justify-between w-full mb-5">
+      <div class="flex items-center gap-4">
+        <div>
+          <img class="h-11 w-11" src="../../../../assets/accProfile.png" alt="" />
+        </div>
+        <div>
+          <p class="text-[#101828] text-lg !mb-0">Acc</p>
+          <span class="text-[#475467] text-sm">my profile</span>
+        </div>
+      </div>
+      <div mat-dialog-close class="w-[45px] cursor-pointer">
+        <img class="w-full" src="../../../../assets/close.png" alt="" />
+      </div>
+    </div>
+    <hr />
+
+    <form class="w-full">
+      <label class="text-[#667085] text-sm font-medium" for="name">Name</label>
+      <input
+        class="w-full border rounded-md border-solid border-[#D0D5DD] py-3 px-4 outline-none mb-5"
+        id="name"
+        type="text"
+        placeholder="Name"
+      />
+      <label class="text-[#667085] text-sm font-medium" for="surname">Surname</label>
+      <input
+        class="w-full border rounded-md border-solid border-[#D0D5DD] py-3 px-4 outline-none mb-5"
+        id="surname"
+        type="text"
+        placeholder="Surname"
+      />
+      <label class="text-[#667085] text-sm font-medium" for="username">Username</label>
+      <input
+        class="w-full border rounded-md border-solid border-[#D0D5DD] py-3 px-4 outline-none mb-5"
+        id="username"
+        type="text"
+        placeholder="Username"
+      />
+      <label class="text-[#667085] text-sm font-medium" for="email">Email</label>
+      <input
+        class="w-full border rounded-md border-solid border-[#D0D5DD] py-3 px-4 outline-none mb-5"
+        id="email"
+        type="email"
+        placeholder="Email"
+      />
+      <div>
+        <label class="text-[#667085] text-sm font-medium" for="password">Password</label>
+        <input
+          #inp
+          class="w-full border rounded-md border-solid border-[#D0D5DD] py-3 px-4 outline-none mb-5"
+          id="password"
+          type="password"
+          placeholder="Password"
+        />
+        @if (inp.type === 'password') {
+          <img
+            class="w-5 relative bottom-[52px] left-[316px]"
+            (click)="inp.type = 'text'"
+            src="../../../../assets/closed.svg"
+            alt=""
+          />
+        } @else {
+          <img
+            class="w-5 relative bottom-[52px] left-[316px]"
+            (click)="inp.type = 'password'"
+            src="../../../../assets/eye.svg"
+            alt=""
+          />
+        }
+      </div>
+    </form>
+    <hr />
+    <div class="flex justify-between mt-5">
+      <button
+        mat-dialog-close
+        class="py-3 px-4 bg-transparent border rounded-md border-solid border-[#D0D5DD] w-[173px]"
+      >
+        Cancel
+      </button>
+      <button class="py-3 px-4 bg-green-500 w-[173px] border rounded-md hover:bg-green-600 text-white">Storage</button>
+    </div>
+  </div>
+} @else if (data.clickedPlace === 'myideas') {
+  <div class="modal py-8 px-6 w-[732px]">
+    <div class="flex justify-between w-full mb-5">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12">
+          <img class="h-full w-full" src="../../../../assets/smile.png" alt="" />
+        </div>
+        <div>
+          <p class="text-[#101828] !text-[18px] !mb-0">My ideas</p>
+          <span class="text-[#475467] text-sm">Write your thoughts</span>
+        </div>
+      </div>
+      <div mat-dialog-close class="w-[45px] cursor-pointer">
+        <img class="w-full" src="../../../../assets/close.png" alt="" />
+      </div>
+    </div>
+    <hr />
+    <form>
+      <div class="flex w-full justify-between items-center gap-2 mt-8">
+        <div class="w-[50%]">
+          <label class="text-[#667085] text-sm font-medium" for="name">Company name*</label>
+          <input
+            class="w-full border rounded-md border-solid border-[#D0D5DD] py-3 px-4 outline-none mb-5"
+            id="name"
+            type="text"
+            placeholder="Name"
+            [value]="select.value"
+          />
+        </div>
+        <div class="w-[50%]">
+          <select
+            #select
+            class="bg-gray-100 border border-gray-200 text-sm rounded-lg py-3 px-4 w-full p-2.5 dark:bg-gray-300 placeholder-gray-200 text-gray-900 outline-none"
+          >
+            @for (item of educations; track $index) {
+              <option [value]="item">{{ item }}</option>
+            }
+          </select>
+        </div>
+      </div>
+      <div>
+        <textarea
+          class="w-full min-h-[188px] border rounded-md border-solid px-3 py-2 border-[#D0D5DD] outline-none mb-5"
+          placeholder="Enter a description..."
+        ></textarea>
+      </div>
+    </form>
+    <hr />
+    <div class="flex justify-between mt-5 gap-5">
+      <button
+        mat-dialog-close
+        class="py-3 px-4 bg-transparent border rounded-md border-solid border-[#D0D5DD] hover:bg-gray-50 w-[372px]"
+      >
+        Cancel
+      </button>
+      <button class="py-3 px-4 bg-green-500 w-[372px] border rounded-md hover:bg-green-600 text-white">Storage</button>
+    </div>
+  </div>
+}
