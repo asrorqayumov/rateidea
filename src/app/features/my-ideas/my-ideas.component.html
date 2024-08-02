@@ -12,7 +12,7 @@
   </div>
     <div>
       @for (idea of ideas; track idea) {
-        <app-my-idea class="my-1" />
+        <app-idea [isMy]="idea" class="my-1" />
       }
     </div>
   </div>

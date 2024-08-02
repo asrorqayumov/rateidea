@@ -23,7 +23,7 @@ export const routes: Routes = [
     loadComponent: () => import('./features/saved-ideas/saved-ideas.component'),
   },
   {
-    path: 'my',
+    path: 'my-ideas',
     loadComponent: () => import('./features/my-ideas/my-ideas.component'),
   },
   {
