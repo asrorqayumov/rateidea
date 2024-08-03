@@ -3,66 +3,65 @@
     <div class="w-[70%] flex justify-start">
       <h1 class="!text-4xl !mb-7">Sign up</h1>
     </div>
-    <form class="w-[70%]">
+    <form [formGroup]="form" class="w-[70%]" (ngSubmit)="onSubmit()">
       <mat-form-field class="w-full">
-        <mat-label>Your name</mat-label>
-        <input matInput placeholder="John Doe" type="text" />
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" placeholder="John" type="text" />
       </mat-form-field>
 
-      <div class="grid w-full grid-cols-3 gap-1">
-        <mat-form-field>
-          <mat-label>Year of birth</mat-label>
-          <mat-select>
-            @for (item of [10, 20, 30]; track item) {
-              <mat-option [value]="item">
-                {{ item }}
-              </mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" placeholder="Doe" type="text" />
+      </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Birthday</mat-label>
-          <mat-select>
-            @for (item of [10, 20, 30]; track item) {
-              <mat-option [value]="item">
-                {{ item }}
-              </mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Birth month</mat-label>
-          <mat-select>
-            @for (item of [10, 20, 30]; track item) {
-              <mat-option [value]="item">
-                {{ item }}
-              </mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-      </div>
+      <mat-form-field class="w-full">
+        <mat-label>Birthdate</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
       <mat-form-field class="w-full">
         <mat-label>Username</mat-label>
-        <input matInput placeholder="myUsername" type="text" />
+        <input matInput formControlName="userName" placeholder="myUsername" type="text" />
       </mat-form-field>
 
       <mat-form-field class="w-full">
         <mat-label>Email</mat-label>
-        <input matInput placeholder="youremail@email.com" type="email" />
+        <input matInput formControlName="email" placeholder="youremail@email.com" type="email" />
       </mat-form-field>
 
       <mat-form-field class="w-full">
         <mat-label>Password</mat-label>
-        <input matInput placeholder="**********" type="password" />
+        <input matInput formControlName="password" type="password" />
+        @if (form.get('password')?.hasError('required')) {
+          <mat-error>Password is required</mat-error>
+        }
+        @if (form.get('password')?.hasError('minlength')) {
+          <mat-error>Password must be at least 6 characters long</mat-error>
+        }
+        @if (form.get('password')?.hasError('uppercaseLowercase')) {
+          <mat-error>Password must include both uppercase and lowercase characters</mat-error>
+        }
       </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput formControlName="confirmPassword" type="password" />
+        @if (form.get('confirmPassword')?.hasError('required')) {
+          <mat-error>Confirm Password is required</mat-error>
+        }
+        @if (passwordMatchError) {
+          <mat-error>Passwords do not match</mat-error>
+        }
+      </mat-form-field>
+
       <div class="w-full flex justify-end mb-[22px]">
         <a class="no-underline text-blue-600" href="#">Forgot password</a>
       </div>
 
-      <button class="w-full" color="primary" mat-flat-button>Sign up</button>
+      <button class="w-full" color="primary" mat-flat-button type="submit" [disabled]="form.invalid">Sign up</button>
 
       <p class="w-full flex justify-center !mt-[22px]">
         Already have an account?
@@ -70,6 +69,8 @@
       </p>
     </form>
   </div>
+  <!-- Rest of your HTML remains unchanged -->
+
   <div class="z-20 bg-[url(../public/images/signup.svg)] bg-center bg-no-repeat bg-cover rounded-[29px]"></div>
 
   <svg
