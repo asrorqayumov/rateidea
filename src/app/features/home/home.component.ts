@@ -27,12 +27,12 @@ export default class HomeComponent implements OnInit {
         return [...acc, ...category.ideas];
       }, [] as IIdea[]);
 
-      const categoryAll = {
-        ideas: [{ id: 1, title: 'Test title', description: 'TEstTestTest' }],
+      const categoryAll: any = {
+        ideas: allIdeas,
         name: 'All',
         id: 1000000,
       };
-      this.categories = [categoryAll as ICategory, ...categories.data];
+      this.categories = [categoryAll, ...categories.data];
       this.ideas = this.categories[0].ideas;
     });
   }
