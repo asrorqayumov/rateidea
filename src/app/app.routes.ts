@@ -23,6 +23,10 @@ export const routes: Routes = [
     loadComponent: () => import('./features/saved-ideas/saved-ideas.component'),
   },
   {
+    path: 'my-ideas',
+    loadComponent: () => import('./features/my-ideas/my-ideas.component'),
+  },
+  {
     path: 'not-found',
     loadComponent: () => import('./core/components/not-found/not-found.component'),
   },

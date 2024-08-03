@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, input, Input, OnChanges, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,9 +15,11 @@ import { IVote } from '@core/models/IVote';
 export class IdeaComponent implements OnChanges {
   @Input() idea?: IIdea;
   @Input() index!: number;
+  @Input() isMy?: boolean;
 
   isOpened = false;
   votes?: { up: number; down: number };
+  currentUserId: any;
 
   ngOnChanges(): void {
     this.calculateVotes();
