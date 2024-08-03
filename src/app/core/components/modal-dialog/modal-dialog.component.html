@@ -16,71 +16,104 @@
     </div>
     <hr />
 
-    <form class="w-full">
+    <form [formGroup]="form" class="w-full" (ngSubmit)="submit()">
       <label class="text-[#667085] text-sm font-medium" for="name">Name</label>
       <input
-        class="w-full border rounded-md border-solid border-[#D0D5DD] py-3 px-4 outline-none mb-5"
+        formControlName="name"
+        class="w-full border rounded-md border-solid border-[#D0D5DD] py-3 px-4 outline-none mb-1"
         id="name"
         type="text"
         placeholder="Name"
       />
+      @if (form.controls.name.touched && form.controls.name.hasError('required')) {
+        <mat-error class="mb-2 text-red-600 block">Name is <strong>required</strong></mat-error>
+      }
       <label class="text-[#667085] text-sm font-medium" for="surname">Surname</label>
       <input
-        class="w-full border rounded-md border-solid border-[#D0D5DD] py-3 px-4 outline-none mb-5"
+        formControlName="surname"
+        class="w-full border rounded-md border-solid border-[#D0D5DD] py-3 px-4 outline-none mb-1"
         id="surname"
         type="text"
         placeholder="Surname"
       />
+      @if (form.controls.surname.touched && form.controls.surname.hasError('required')) {
+        <mat-error class="mb-2 text-red-600 block">Surname is <strong>required</strong></mat-error>
+      }
       <label class="text-[#667085] text-sm font-medium" for="username">Username</label>
       <input
-        class="w-full border rounded-md border-solid border-[#D0D5DD] py-3 px-4 outline-none mb-5"
+        formControlName="username"
+        class="w-full border rounded-md border-solid border-[#D0D5DD] py-3 px-4 outline-none mb-1"
         id="username"
         type="text"
         placeholder="Username"
       />
+      @if (form.controls.username.touched && form.controls.username.hasError('required')) {
+        <mat-error class="mb-2 text-red-600 block">Username is <strong>required</strong></mat-error>
+      }
       <label class="text-[#667085] text-sm font-medium" for="email">Email</label>
       <input
-        class="w-full border rounded-md border-solid border-[#D0D5DD] py-3 px-4 outline-none mb-5"
+        formControlName="email"
+        class="w-full border rounded-md border-solid border-[#D0D5DD] py-3 px-4 outline-none mb-1"
         id="email"
         type="email"
         placeholder="Email"
       />
-      <div>
+      @if (form.controls.email.touched && form.controls.email.hasError('required')) {
+        <mat-error class="mb-2 text-red-600 block">Email is <strong>required</strong></mat-error>
+      }
+      @if (form.controls.email.hasError('email')) {
+        <mat-error class="mb-2 text-red-600 block">Email is not <strong>valid !</strong></mat-error>
+      }
+      <div class="relative">
         <label class="text-[#667085] text-sm font-medium" for="password">Password</label>
         <input
+          formControlName="password"
           #inp
           class="w-full border rounded-md border-solid border-[#D0D5DD] py-3 px-4 outline-none mb-5"
           id="password"
           type="password"
           placeholder="Password"
         />
+        @if (form.controls.password.hasError('required')) {
+          <mat-error class="mb-2 text-red-600 block">Password is <strong>required </strong></mat-error>
+        } @else if (form.controls.password.hasError('minlength')) {
+          <mat-error class="mb-2 text-red-600 block"
+            >Minimum length should be <strong>6 </strong> characters !</mat-error
+          >
+        }
         @if (inp.type === 'password') {
           <img
-            class="w-5 relative bottom-[52px] left-[316px]"
+            class="w-5 absolute top-[33px] bottom-0 left-[314px]"
             (click)="inp.type = 'text'"
             src="../../../../assets/closed.svg"
             alt=""
           />
         } @else {
           <img
-            class="w-5 relative bottom-[52px] left-[316px]"
+            class="w-5 absolute top-[33px] bottom-0 left-[314px]"
             (click)="inp.type = 'password'"
             src="../../../../assets/eye.svg"
             alt=""
           />
         }
       </div>
+      <hr />
+      <div class="flex justify-between mt-5">
+        <button
+          mat-dialog-close
+          class="py-3 px-4 bg-transparent border rounded-md border-solid border-[#D0D5DD] w-[173px]"
+        >
+          Cancel
+        </button>
+        <button
+          class="py-3 px-4 bg-green-500 w-[173px] border rounded-md hover:bg-green-600 text-white"
+          type="submit"
+          [disabled]="form.invalid"
+        >
+          Storage
+        </button>
+      </div>
     </form>
-    <hr />
-    <div class="flex justify-between mt-5">
-      <button
-        mat-dialog-close
-        class="py-3 px-4 bg-transparent border rounded-md border-solid border-[#D0D5DD] w-[173px]"
-      >
-        Cancel
-      </button>
-      <button class="py-3 px-4 bg-green-500 w-[173px] border rounded-md hover:bg-green-600 text-white">Storage</button>
-    </div>
   </div>
 } @else if (data.clickedPlace === 'myideas') {
   <div class="modal py-8 px-6 w-[732px]">
