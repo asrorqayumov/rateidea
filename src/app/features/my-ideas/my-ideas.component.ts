@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { NavbarComponent } from '@core/components/navbar/navbar.component';
-import { IdeaComponent } from "../../shared/components/idea/idea.component";
+import { IdeaComponent } from "@shared/components/idea/idea.component";
 
 @Component({
   standalone: true,
