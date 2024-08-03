@@ -15,10 +15,7 @@
       </mat-form-field>
 
       <mat-form-field class="w-full">
-        <mat-label>Birthdate</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" />
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" (focus)="picker.open()" placeholder="MM/DD/YYYY">
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
