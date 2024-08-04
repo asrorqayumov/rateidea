@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
+import { SnackbarMessage } from '@core/models/Snackbar';
 import { BehaviorSubject } from 'rxjs';
-
-export interface SnackbarMessage {
-  message: string;
-  cancelText?: string;
-  duration?: number;
-}
 
 @Injectable({ providedIn: 'root' })
 export class SnackBarService {

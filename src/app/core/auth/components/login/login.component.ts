@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@core/auth/services/auth.service';
 
 @Component({
@@ -24,6 +24,7 @@ import { AuthService } from '@core/auth/services/auth.service';
 export default class LoginComponent implements OnInit {
   formBuilder = inject(FormBuilder);
   authService = inject(AuthService);
+  router = inject(Router);
 
   form!: FormGroup;
 
@@ -33,10 +34,11 @@ export default class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
+
   onSubmit(): void {
     if (this.form.valid) {
       this.authService.login(this.form.value).subscribe((res) => {
-        console.log(res);
+        this.router.navigateByUrl('/home');
       });
     }
   }
