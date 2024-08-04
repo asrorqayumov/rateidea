@@ -1,9 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -16,10 +14,8 @@ import { MatDialog } from '@angular/material/dialog';
     MatDialogClose,
     FormsModule,
     MatInputModule,
-    MatSelectModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatDatepickerModule,
   ],
   templateUrl: './modal-dialog.component.html',
   styleUrl: './modal-dialog.component.scss',
