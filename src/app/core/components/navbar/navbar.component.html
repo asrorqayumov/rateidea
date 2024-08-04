@@ -1,9 +1,15 @@
 <mat-toolbar class="rounded-xl !bg-gray-100">
-  <span>Idea-up</span>
+  <button [routerLink]="['/home']">
+    <span>Idea-up</span>
+  </button>
   <span class="flex-1"></span>
-  <button class="!mr-1 !bg-white" mat-stroked-button>Saved ideas</button>
+  <button [routerLink]="['/saved']" routerLinkActive="!bg-[#02BF67] !text-white" class="!mr-1" mat-stroked-button>
+    Saved ideas
+  </button>
 
-  <button class="mr-1 !bg-white" mat-stroked-button>My ideas</button>
+  <button routerLinkActive="!bg-[#02BF67] !text-white" [routerLink]="['/my-ideas']" class="mr-1" mat-stroked-button>
+    My ideas
+  </button>
 
-  <button class="mr-1 !bg-[#02BF67] !text-white" (click)="openModal()" mat-stroked-button>Account</button>
+  <button class="mr-1 !bg-[#02BF67] !text-white" mat-stroked-button>Account</button>
 </mat-toolbar>
