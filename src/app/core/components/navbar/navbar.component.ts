@@ -17,8 +17,6 @@ export class NavbarComponent {
     this.dialog.open(ModalDialogComponent, {
       data: {
         clickedPlace: 'acc',
-        // clickedPlace:'myideas'
-        // => bu add ideas modal ekanligini bilish uchun kerak data!
       },
     });
   }
