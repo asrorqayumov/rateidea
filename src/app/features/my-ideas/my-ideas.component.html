@@ -9,8 +9,8 @@
     <div class="flex items-center mb-4">
       <h3 class="!text-[22px] flex-1">My ideas</h3>
       <button class="!bg-[#02BF67] !text-white !mr-1" mat-stroked-button>Add</button>
-  </div>
-    <div>
+    </div>
+    <div class="flex flex-col w-full">
       @for (idea of ideas; track idea) {
         <app-idea [isMy]="idea" class="my-1" />
       }

@@ -60,8 +60,14 @@ export default class SignUpComponent implements OnInit {
       newValue.dateOfBirth = this.datePipe.transform(this.form.value.dateOfBirth, 'YYYY-MM-dd');
       console.log(newValue);
 
-      this.authService.signup(this.form.value).subscribe((res) => {
-        console.log(res);
+
+      this.authService.signup(this.form.value).subscribe({
+        next: (res) => {
+          console.log('Response:', res);
+        },
+        error: (error) => {
+          console.error('Error:', error);
+        }
       });
     }
   }
