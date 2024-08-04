@@ -10,19 +10,14 @@ export class AuthService {
   http$ = inject(HttpClient);
 
   signup(value: SignUpFormValue): Observable<IResponse<string>> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-
-    const body = new HttpParams()
-      .set('lastName', value.lastName)
-      .set('firstName', value.firstName)
-      .set('userName', value.userName)
-      .set('email', value.email)
-      .set('email', value.dateOfBirth.toString())
-      .set('password', value.password)
-      .set('confirmPassword', value.confirmPassword);
-
-    return this.http$.post<IResponse<string>>(environment.api + 'auth/sign-up', body.toString(), { headers });
+    const formData = new FormData();
+    formData.append('lastName', value.lastName);
+    formData.append('firstName', value.firstName);
+    formData.append('userName', value.userName);
+    formData.append('email', value.email);
+    formData.append('password', value.password);
+    formData.append('confirmPassword', value.confirmPassword);
+    
+    return this.http$.post<IResponse<string>>(environment.api + 'auth/sign-up', formData);
   }
 }
