@@ -3,21 +3,21 @@
     <div class="w-[70%] flex justify-start">
       <h1 class="!text-4xl !mb-7">Log into your account</h1>
     </div>
-    <form class="w-[70%]">
+    <form class="w-[70%]" [formGroup]="form" (ngSubmit)="onSubmit()">
       <mat-form-field class="w-full">
         <mat-label>Email or username</mat-label>
-        <input matInput type="text" />
+        <input matInput type="text" formControlName="emailOrUserName" />
       </mat-form-field>
 
       <mat-form-field class="w-full">
         <mat-label>Password</mat-label>
-        <input matInput placeholder="**********" type="password" />
+        <input matInput placeholder="**********" type="password" formControlName="password" />
       </mat-form-field>
       <div class="w-full flex justify-end mb-[22px]">
         <a class="no-underline text-blue-600" href="#">Forgot password</a>
       </div>
 
-      <button class="w-full" color="primary" mat-flat-button>Login</button>
+      <button class="w-full" type="submit" color="primary" mat-flat-button [disabled]="form.invalid">Login</button>
 
       <p class="w-full flex justify-center !mt-[22px]">
         Don't you have an account?
@@ -25,10 +25,12 @@
       </p>
     </form>
   </div>
-  <div class="z-20 bg-[url(../public/images/signup.svg)] lg:block hidden  bg-center bg-no-repeat bg-cover rounded-[29px]"></div>
+  <div
+    class="z-20 bg-[url(../public/images/signup.svg)] lg:block hidden bg-center bg-no-repeat bg-cover rounded-[29px]"
+  ></div>
 
   <svg
-    class="absolute z-10 h-full lg:block hidden  top-[50%] left-[55%] -translate-y-[50%] -translate-x-[40%]"
+    class="absolute z-10 h-full lg:block hidden top-[50%] left-[55%] -translate-y-[50%] -translate-x-[40%]"
     fill="none"
     height="1068"
     viewBox="0 0 1080 1068"

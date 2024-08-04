@@ -15,14 +15,20 @@
       </mat-form-field>
 
       <mat-form-field class="w-full">
-        <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" (focus)="picker.open()" placeholder="MM/DD/YYYY">
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="dateOfBirth"
+          (focus)="picker.open()"
+          placeholder="MM/DD/YYYY"
+        />
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field class="w-full">
         <mat-label>Username</mat-label>
         <input matInput formControlName="userName" placeholder="myUsername" type="text" />
-      </mat-form-field> 
+      </mat-form-field>
 
       <mat-form-field class="w-full">
         <mat-label>Email</mat-label>
@@ -68,7 +74,9 @@
   </div>
   <!-- Rest of your HTML remains unchanged -->
 
-  <div class="z-20 bg-[url(../public/images/signup.svg)] hidden lg:block bg-center bg-no-repeat bg-cover rounded-[29px]"></div>
+  <div
+    class="z-20 bg-[url(../public/images/signup.svg)] hidden lg:block bg-center bg-no-repeat bg-cover rounded-[29px]"
+  ></div>
 
   <svg
     class="absolute z-10 h-full top-[50%] hidden lg:block left-[55%] -translate-y-[50%] -translate-x-[40%]"
