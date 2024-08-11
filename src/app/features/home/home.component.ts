@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
+import { AuthService } from '@core/auth/services/auth.service';
 import { NavbarComponent } from '@core/components/navbar/navbar.component';
 import { ICategory } from '@core/models/ICategory';
 import { IIdea } from '@core/models/IIdea';
@@ -17,6 +18,7 @@ import { IdeaComponent } from '@shared/components/idea/idea.component';
 export default class HomeComponent implements OnInit {
   ideasService = inject(IdeasService);
   categoriesService = inject(CategoriesService);
+  authService = inject(AuthService);
 
   ideas?: IIdea[] = [];
   categories: ICategory[] = [];

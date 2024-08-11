@@ -11,11 +11,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AuthService } from '@core/auth/services/auth.service';
 import { DatePipe } from '@angular/common';
+import { SnackBarService } from '@core/services/snackbar.service';
+import { SnackbarType } from '@core/models/Snackbar';
 
 @Component({
   selector: 'app-sign-up',
@@ -37,6 +39,8 @@ export default class SignUpComponent implements OnInit {
   formBuilder = inject(FormBuilder);
   authService = inject(AuthService);
   datePipe = inject(DatePipe);
+  router = inject(Router);
+  snackbarService = inject(SnackBarService);
 
   form!: FormGroup;
 
@@ -60,9 +64,11 @@ export default class SignUpComponent implements OnInit {
       newValue.dateOfBirth = this.datePipe.transform(this.form.value.dateOfBirth, 'YYYY-MM-dd');
       console.log(newValue);
 
-      this.authService.signup(this.form.value).subscribe({
+      this.authService.signup(newValue).subscribe({
         next: (res) => {
-          console.log('Response:', res);
+          console.log(res);
+          this.snackbarService.snackBar$.next({ message: res.data, type: SnackbarType.INFO, cancelText: 'Okay' });
+          this.router.navigateByUrl('/verify-email?email=' + newValue.email);
         },
         error: (error) => {
           console.error('Error:', error);
