@@ -1,9 +1,11 @@
-import { Component, input, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, inject, input, Input, OnChanges, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '@core/auth/services/auth.service';
 import { IIdea } from '@core/models/IIdea';
 import { IVote } from '@core/models/IVote';
+import { IdeasService } from '@core/services/ideas.service';
 
 @Component({
   selector: 'app-idea',
@@ -12,28 +14,38 @@ import { IVote } from '@core/models/IVote';
   templateUrl: './idea.component.html',
   styleUrl: 'idea.component.scss',
 })
-export class IdeaComponent implements OnChanges {
+export class IdeaComponent implements OnChanges, OnInit {
+  authService = inject(AuthService);
+  ideasService = inject(IdeasService);
+
   @Input() idea?: IIdea;
   @Input() index!: number;
-  @Input() isMy?: boolean;
 
   isOpened = false;
+  currentUserId: number | undefined;
   votes?: { up: number; down: number };
-  currentUserId: any;
 
   ngOnChanges(): void {
     this.calculateVotes();
   }
+  ngOnInit(): void {
+    this.currentUserId = this.authService.getUser()?.id;
+  }
 
   isUserVoted(votes: IVote[] | undefined): 'UP' | 'DOWN' | false {
-    // TODO replace 0 to current_user.id
-    const index = votes?.findIndex((vote) => vote?.user?.id === 0);
+    const index = votes?.findIndex((vote) => vote?.user?.id === this.currentUserId);
 
     if (index !== -1 && index !== undefined) {
       return votes?.[index]?.isUpvote ? 'UP' : 'DOWN';
     }
 
     return false;
+  }
+
+  vote(isUpvote: boolean): void {
+    this.ideasService.vote({ isUpvote, ideaId: this.idea!.id }).subscribe((data) => {
+      console.log(data);
+    });
   }
 
   calculateVotes(): void {
