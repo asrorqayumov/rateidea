@@ -19,7 +19,7 @@
   </div>
   <div class="flex flex-col w-full">
     @for (idea of ideas; track idea) {
-      <app-idea [idea]="idea" [index]="$index" class="my-1" />
+      <app-idea [idea]="idea" [index]="$index" (emitter)="handleDeleteIdea($event)" class="my-1" />
     }
   </div>
 </div>

@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
-import { AuthService } from '@core/auth/services/auth.service';
 import { NavbarComponent } from '@core/components/navbar/navbar.component';
 import { ICategory } from '@core/models/ICategory';
 import { IIdea } from '@core/models/IIdea';
@@ -31,11 +30,13 @@ export default class MyIdeasComponent implements OnInit {
   groupByCategory(ideas: IIdea[]): ICategory[] {
     const grouped = ideas.reduce((acc, idea) => {
       const category = acc.find(c => c.id === idea.category.id);
+      
       if (!category) {
         acc.push({ ...idea.category, ideas: [idea] });
       } else {
         category.ideas.push(idea);
       }
+
       return acc;
     }, [] as ICategory[]);
 
@@ -52,5 +53,12 @@ export default class MyIdeasComponent implements OnInit {
   
   onTabSwitch($event: MatTabChangeEvent) {
     this.ideas = this.categories[$event.index].ideas;
+  }
+
+  handleDeleteIdea(ideaId: number): void {
+    this.ideas = this.ideas?.filter(idea => idea.id !== ideaId);
+    this.ideasService.delete(ideaId).subscribe(res => {
+      console.log(res);
+    });
   }
 }

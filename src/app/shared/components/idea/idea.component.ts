@@ -1,8 +1,9 @@
-import { Component, inject, input, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, inject, Input, OnChanges, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '@core/auth/services/auth.service';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { IIdea } from '@core/models/IIdea';
 import { IVote } from '@core/models/IVote';
 import { IdeasService } from '@core/services/ideas.service';
@@ -10,7 +11,7 @@ import { IdeasService } from '@core/services/ideas.service';
 @Component({
   selector: 'app-idea',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatRippleModule],
+  imports: [MatIconModule, MatButtonModule, MatRippleModule, MatSlideToggleModule],
   templateUrl: './idea.component.html',
   styleUrl: 'idea.component.scss',
 })
@@ -20,6 +21,7 @@ export class IdeaComponent implements OnChanges, OnInit {
 
   @Input() idea?: IIdea;
   @Input() index!: number;
+  @Output() emitter = new EventEmitter()
 
   isOpened = false;
   currentUserId: number | undefined;
@@ -46,6 +48,14 @@ export class IdeaComponent implements OnChanges, OnInit {
     this.ideasService.vote({ isUpvote, ideaId: this.idea!.id }).subscribe((data) => {
       console.log(data);
     });
+  }
+
+  deleteIdea(): void {
+    const confirmed = window.confirm('Haqiqatan ham ushbu g‘oyani o‘chirmoqchimisiz?');
+    
+    if (confirmed && this.idea?.id !== undefined) {
+      this.emitter.next(this.idea.id);
+    }
   }
 
   calculateVotes(): void {

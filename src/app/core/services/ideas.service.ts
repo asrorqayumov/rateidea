@@ -26,4 +26,8 @@ export class IdeasService {
       headers: this.headers,
     });
   }
+
+  delete(ideaId: number): Observable<IResponse<Boolean>> {
+    return this.httpClient$.delete<IResponse<Boolean>>(environment.api + 'ideas/delete/' + ideaId);
+  }
 }
