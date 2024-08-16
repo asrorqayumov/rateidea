@@ -56,9 +56,9 @@ export default class MyIdeasComponent implements OnInit {
   }
 
   handleDeleteIdea(ideaId: number): void {
-    this.ideas = this.ideas?.filter(idea => idea.id !== ideaId);
     this.ideasService.delete(ideaId).subscribe(res => {
-      console.log(res);
+      if(res.data)
+        this.ideas = this.ideas?.filter(idea => idea.id !== ideaId);
     });
   }
 }
