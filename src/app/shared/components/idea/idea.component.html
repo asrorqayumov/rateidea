@@ -30,8 +30,7 @@
   <hr />
 
   <div class="w-full flex items-center justify-end">
-    <!-- @if(idea?.user?.id == currentUserId) -->
-    @if (isMy) {
+    @if (idea?.user?.id == currentUserId) {
       <button class="rounded-[6px] py-2 px-6 flex justify-center items-center bg-gray-100 mr-1" matRipple>
         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48">
           <path
@@ -66,6 +65,7 @@
       </button>
 
       <button
+        (click)="vote(false)"
         class="rounded-[6px] py-2 px-6 mr-3 flex justify-center items-center {{
           isUserVoted(idea?.votes) == 'DOWN' ? 'bg-[#02BF67]' : 'bg-gray-100'
         }}"

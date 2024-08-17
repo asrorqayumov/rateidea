@@ -10,31 +10,37 @@ export const routes: Routes = [
   {
     path: 'signup',
     canMatch: [NoAuthGuard],
+    canActivate: [NoAuthGuard],
     loadComponent: () => import('./core/auth/components/sign-up/sign-up.component'),
   },
   {
     path: 'login',
     canMatch: [NoAuthGuard],
+    canActivate: [NoAuthGuard],
     loadComponent: () => import('./core/auth/components/login/login.component'),
   },
   {
     path: 'verify-email',
     canMatch: [NoAuthGuard],
+    canActivate: [NoAuthGuard],
     loadComponent: () => import('./core/auth/components/verify-email/verify-email.component'),
   },
   {
     path: 'home',
     canMatch: [authGuard],
+    canActivate: [authGuard],
     loadComponent: () => import('./features/home/home.component'),
   },
   {
     path: 'saved',
     canMatch: [authGuard],
+    canActivate: [authGuard],
     loadComponent: () => import('./features/saved-ideas/saved-ideas.component'),
   },
   {
     path: 'my-ideas',
     canMatch: [authGuard],
+    canActivate: [authGuard],
     loadComponent: () => import('./features/my-ideas/my-ideas.component'),
   },
   {
