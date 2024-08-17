@@ -1,13 +1,25 @@
 <app-navbar />
 
+<mat-tab-group
+(selectedTabChange)="onTabSwitch($event)"
+  mat-align-tabs="start"
+  [disableRipple]="true"
+  mat-stretch-tabs="false"
+  class="custom-mat-tab mt-5"
+>
+  @for (category of categories; track category.id) {
+    <mat-tab [label]="category.name"></mat-tab>
+  }
+</mat-tab-group>
+
 <div class="w-full flex flex-col bg-gray-100 py-6 px-12 rounded-[14px] mt-5">
   <div class="flex items-center mb-4">
     <h3 class="!text-[22px] flex-1">My ideas</h3>
-    <button class="!bg-[#02BF67] !text-white !mr-1" mat-stroked-button>Add</button>
+    <button class="!bg-[#02BF67] !text-white" mat-stroked-button>Add</button>
   </div>
   <div class="flex flex-col w-full">
     @for (idea of ideas; track idea) {
-      <app-idea [idea]="idea" [index]="$index" class="my-1" />
+      <app-idea [idea]="idea" [index]="$index" (emitter)="handleDeleteIdea($event)" class="my-1" />
     }
   </div>
 </div>

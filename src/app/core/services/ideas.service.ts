@@ -17,13 +17,17 @@ export class IdeasService {
     return this.httpClient$.get<IResponse<IIdea[]>>(environment.api + 'ideas/get-all');
   }
 
-  getIdeas(userId: number): Observable<IResponse<IIdea[]>> {
-    return this.httpClient$.get<IResponse<IIdea[]>>(environment.api + 'ideas/get-by-user-id/' + userId);
+  getIdeas(): Observable<IResponse<IIdea[]>> {
+    return this.httpClient$.get<IResponse<IIdea[]>>(environment.api + 'ideas/get');
   }
 
   vote(data: { isUpvote: boolean; ideaId: number }): Observable<IResponse<IVote>> {
-    return this.httpClient$.post<IResponse<IVote>>(environment.api + 'idea-votes/create', JSON.stringify(data), {
+    return this.httpClient$.post<IResponse<IVote>>(environment.api + 'idea-votes/toggle-idea-vote', JSON.stringify(data), {
       headers: this.headers,
     });
+  }
+
+  delete(ideaId: number): Observable<IResponse<Boolean>> {
+    return this.httpClient$.delete<IResponse<Boolean>>(environment.api + 'ideas/delete/' + ideaId);
   }
 }
