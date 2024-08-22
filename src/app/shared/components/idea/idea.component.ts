@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '@core/auth/services/auth.service';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { IIdea } from '@core/models/IIdea';
 import { IVote } from '@core/models/IVote';
 import { IdeasService } from '@core/services/ideas.service';
@@ -21,7 +21,7 @@ export class IdeaComponent implements OnChanges, OnInit {
 
   @Input() idea?: IIdea;
   @Input() index!: number;
-  @Output() emitter = new EventEmitter()
+  @Output() emitter = new EventEmitter();
 
   isOpened = false;
   currentUserId: number | undefined;
@@ -45,14 +45,24 @@ export class IdeaComponent implements OnChanges, OnInit {
   }
 
   vote(isUpvote: boolean): void {
-    this.ideasService.vote({ isUpvote, ideaId: this.idea!.id }).subscribe((data) => {
-      console.log(data);
+    this.ideasService.vote({ isUpvote, ideaId: this.idea!.id }).subscribe((response) => {
+      if (response.statusCode === 200) {
+        const newVote = response.data;
+        const existingVoteIndex = this.idea?.votes?.findIndex((vote) => vote.user?.id === this.currentUserId);
+
+        if (existingVoteIndex !== -1 && existingVoteIndex !== undefined) {
+          this.idea!.votes![existingVoteIndex] = newVote;
+        } else {
+          this.idea!.votes!.push(newVote);
+        }
+        this.calculateVotes();
+      }
     });
   }
 
   deleteIdea(): void {
     const confirmed = window.confirm('Haqiqatan ham ushbu g‘oyani o‘chirmoqchimisiz?');
-    
+
     if (confirmed && this.idea?.id !== undefined) {
       this.emitter.next(this.idea.id);
     }

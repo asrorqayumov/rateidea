@@ -14,6 +14,7 @@ import { RouterLink } from '@angular/router';
 })
 export class NavbarComponent {
   dialog = inject(MatDialog);
+
   openModal() {
     this.dialog.open(ModalDialogComponent, {
       data: {

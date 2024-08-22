@@ -1,6 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
+import { ModalDialogComponent } from '@core/components/modal-dialog/modal-dialog.component';
 import { NavbarComponent } from '@core/components/navbar/navbar.component';
 import { ICategory } from '@core/models/ICategory';
 import { IIdea } from '@core/models/IIdea';
@@ -16,7 +18,7 @@ import { IdeaComponent } from '@shared/components/idea/idea.component';
 })
 export default class MyIdeasComponent implements OnInit {
   ideasService = inject(IdeasService);
-  
+  dialog = inject(MatDialog);
   ideas?: IIdea[] = [];
   categories: ICategory[] = [];
 
@@ -27,10 +29,18 @@ export default class MyIdeasComponent implements OnInit {
     });
   }
 
+  openModal(): void {
+    this.dialog.open(ModalDialogComponent, {
+      data: {
+        clickedPlace: 'myideas',
+      },
+    });
+  }
+
   groupByCategory(ideas: IIdea[]): ICategory[] {
     const grouped = ideas.reduce((acc, idea) => {
-      const category = acc.find(c => c.id === idea.category.id);
-      
+      const category = acc.find((c) => c.id === idea.category.id);
+
       if (!category) {
         acc.push({ ...idea.category, ideas: [idea] });
       } else {
@@ -45,20 +55,19 @@ export default class MyIdeasComponent implements OnInit {
       name: 'All',
       description: 'All ideas',
       image: { id: 0, fileName: '', filePath: '' },
-      ideas: ideas
+      ideas: ideas,
     });
 
     return grouped;
   }
-  
+
   onTabSwitch($event: MatTabChangeEvent) {
     this.ideas = this.categories[$event.index].ideas;
   }
 
   handleDeleteIdea(ideaId: number): void {
-    this.ideasService.delete(ideaId).subscribe(res => {
-      if(res.data)
-        this.ideas = this.ideas?.filter(idea => idea.id !== ideaId);
+    this.ideasService.delete(ideaId).subscribe((res) => {
+      if (res.data) this.ideas = this.ideas?.filter((idea) => idea.id !== ideaId);
     });
   }
 }
