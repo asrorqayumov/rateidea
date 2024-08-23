@@ -11,10 +11,6 @@ import { IIdeaResponse } from '@core/models/IIdeaResponse';
 export class ModalDialogService {
   http = inject(HttpClient);
 
-  private headers = new HttpHeaders({
-    'Content-Type': 'multipart/form-data',
-  });
-
   // modal account
   getUser(id: number): Observable<IResponse<IUser>> {
     return this.http.get<IResponse<IUser>>(environment.api + 'users/get/' + id);

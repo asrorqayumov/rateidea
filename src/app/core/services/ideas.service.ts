@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { IIdea } from '@core/models/IIdea';
 import { IResponse } from '@core/models/IResponse';
 import { IVote } from '@core/models/IVote';
+import { ISavedIdeaResponse } from '@core/models/IIdeaResponse';
 
 @Injectable({ providedIn: 'root' })
 export class IdeasService {
@@ -22,9 +23,23 @@ export class IdeasService {
   }
 
   vote(data: { isUpvote: boolean; ideaId: number }): Observable<IResponse<IVote>> {
-    return this.httpClient$.post<IResponse<IVote>>(environment.api + 'idea-votes/toggle-idea-vote', JSON.stringify(data), {
-      headers: this.headers,
-    });
+    return this.httpClient$.post<IResponse<IVote>>(
+      environment.api + 'idea-votes/toggle-idea-vote',
+      JSON.stringify(data),
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
+  saveIdeaRequest(data: { ideaId: number }): Observable<IResponse<ISavedIdeaResponse>> {
+    return this.httpClient$.post<IResponse<ISavedIdeaResponse>>(
+      environment.api + 'saved-ideas/create',
+      JSON.stringify(data),
+      {
+        headers: this.headers,
+      }
+    );
   }
 
   delete(ideaId: number): Observable<IResponse<Boolean>> {

@@ -1,5 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,6 +36,7 @@ export class ModalDialogComponent implements OnInit {
   formBuilder = inject(FormBuilder);
   data = inject(MAT_DIALOG_DATA);
   dialog = inject(MatDialog);
+  dialogRef = inject(MatDialogRef<ModalDialogComponent>);
   modalService = inject(ModalDialogService);
   categoriesService = inject(CategoriesService);
   user: IUser = {} as IUser;
@@ -89,8 +96,9 @@ export class ModalDialogComponent implements OnInit {
   }
   myIdeasFormSubmit(): void {
     this.modalService.createIdea(this.myideaForm.value).subscribe((res) => {
-      console.log(res);
+      console.log(res.data, 'created object ');
+
+      this.dialogRef.close({ newIdea: res.data });
     });
-    this.dialog.closeAll();
   }
 }

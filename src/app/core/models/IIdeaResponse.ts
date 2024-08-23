@@ -3,3 +3,7 @@ export interface IIdeaResponse {
   description: string;
   categoryId: number;
 }
+
+export interface ISavedIdeaResponse {
+  ideaId: number;
+}

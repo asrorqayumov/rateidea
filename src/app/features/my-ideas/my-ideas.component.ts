@@ -30,13 +30,19 @@ export default class MyIdeasComponent implements OnInit {
   }
 
   openModal(): void {
-    this.dialog.open(ModalDialogComponent, {
+    const dialogRef = this.dialog.open(ModalDialogComponent, {
       data: {
         clickedPlace: 'myideas',
       },
     });
-  }
 
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result && result.newIdea) {
+        this.ideas?.push(result.newIdea);
+        this.categories = this.groupByCategory(this.ideas!);
+      }
+    });
+  }
   groupByCategory(ideas: IIdea[]): ICategory[] {
     const grouped = ideas.reduce((acc, idea) => {
       const category = acc.find((c) => c.id === idea.category.id);

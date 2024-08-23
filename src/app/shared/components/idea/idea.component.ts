@@ -23,6 +23,7 @@ export class IdeaComponent implements OnChanges, OnInit {
   @Input() index!: number;
   @Output() emitter = new EventEmitter();
 
+  isIdeaSaved = false;
   isOpened = false;
   currentUserId: number | undefined;
   votes?: { up: number; down: number };
@@ -56,6 +57,20 @@ export class IdeaComponent implements OnChanges, OnInit {
           this.idea!.votes!.push(newVote);
         }
         this.calculateVotes();
+      }
+    });
+  }
+
+  saveIdea(): void {
+    if (!this.idea?.id) {
+      console.error('Idea ID is undefined!');
+      return;
+    }
+    const data = { ideaId: this.idea?.id };
+
+    this.ideasService.saveIdeaRequest(data).subscribe((res) => {
+      if (res.statusCode == 200) {
+        this.isIdeaSaved = true;
       }
     });
   }
