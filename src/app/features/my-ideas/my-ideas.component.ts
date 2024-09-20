@@ -1,48 +1,59 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
-import { ModalDialogComponent } from '@core/components/modal-dialog/modal-dialog.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTab, MatTabChangeEvent, MatTabGroup } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { NavbarComponent } from '@core/components/navbar/navbar.component';
-import { ICategory } from '@core/models/ICategory';
+import { IdeaComponent } from '@shared/components/idea/idea.component';
+import { AuthService } from '@core/auth/services/auth.service';
 import { IIdea } from '@core/models/IIdea';
 import { IdeasService } from '@core/services/ideas.service';
-import { IdeaComponent } from '@shared/components/idea/idea.component';
+import { ICategory } from '@core/models/ICategory';
+import { ModalIdeasComponent } from '@core/components/modal-dialog/modal-ideas/modal-ideas.component';
 
 @Component({
   standalone: true,
   selector: 'app-my-ideas',
-  imports: [MatTabsModule, NavbarComponent, MatButtonModule, IdeaComponent],
+
+  imports: [NavbarComponent, MatTabGroup, MatTab, MatButtonModule, IdeaComponent, MatToolbarModule, MatIconModule],
+
   templateUrl: './my-ideas.component.html',
   styles: ``,
 })
 export default class MyIdeasComponent implements OnInit {
   ideasService = inject(IdeasService);
-  dialog = inject(MatDialog);
+
+  authService = inject(AuthService);
+  ideasState = [true, false];
+
   ideas?: IIdea[] = [];
   categories: ICategory[] = [];
 
+  dialog = inject(MatDialog);
+
+  openModal() {
+    this.dialog
+      .open(ModalIdeasComponent, { data: { ideas: false } })
+      .afterClosed()
+      .subscribe((data) => {
+        if (data.success) {
+          this.getMyIdeas();
+        }
+      });
+  }
+
   ngOnInit(): void {
+    this.getMyIdeas();
+  }
+
+  getMyIdeas(): void {
     this.ideasService.getIdeas().subscribe((res) => {
       this.ideas = res.data;
-      this.categories = this.groupByCategory(this.ideas);
+      this.categories = this.groupByCategory(this.ideas!);
     });
   }
 
-  openModal(): void {
-    const dialogRef = this.dialog.open(ModalDialogComponent, {
-      data: {
-        clickedPlace: 'myideas',
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result && result.newIdea) {
-        this.ideas?.push(result.newIdea);
-        this.categories = this.groupByCategory(this.ideas!);
-      }
-    });
-  }
   groupByCategory(ideas: IIdea[]): ICategory[] {
     const grouped = ideas.reduce((acc, idea) => {
       const category = acc.find((c) => c.id === idea.category.id);

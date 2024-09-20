@@ -15,7 +15,8 @@
 <div class="w-full flex flex-col bg-gray-100 py-6 px-12 rounded-[14px] mt-5">
   <div class="flex items-center mb-4">
     <h3 class="!text-[22px] flex-1">My ideas</h3>
-    <button class="!bg-[#02BF67] !text-white" (click)="openModal()" mat-stroked-button>Add</button>
+
+    <button class="!bg-[#02BF67] !text-white !mr-1" (click)="openModal()" mat-stroked-button>Add</button>
   </div>
   <div class="flex flex-col w-full">
     @for (idea of ideas; track idea) {

@@ -1,0 +1,59 @@
+<div class="modal py-8 px-6 w-[732px]">
+  <div class="flex justify-between w-full mb-5">
+    <div class="flex items-center gap-4">
+      <div class="w-12 h-12">
+        <img class="h-full w-full" src="images/smile.png" alt="" />
+      </div>
+      <div>
+        <p class="text-[#101828] !text-[18px] !mb-0">My ideas</p>
+        <span class="text-[#475467] text-sm">Write your thoughts</span>
+      </div>
+    </div>
+    <div mat-dialog-close class="w-[45px] cursor-pointer">
+      <img class="w-full" src="images/close.png" alt="" />
+    </div>
+  </div>
+  <hr />
+
+  <form [formGroup]="formGroupIdeas">
+    <div class="flex w-full justify-between items-end mb-4 gap-2 mt-4">
+      <div class="w-[50%]">
+        <mat-form-field class="w-full [&_.mat-mdc-form-field-subscript-wrapper]:hidden" [appearance]="'outline'">
+          <input matInput formControlName="title" type="text" placeholder="Write your idea's title..." />
+        </mat-form-field>
+      </div>
+
+      <mat-form-field [appearance]="'outline'" class="w-[50%] [&_.mat-mdc-form-field-subscript-wrapper]:hidden">
+        <mat-select formControlName="categoryId" placeholder="Select category...">
+          @for (item of educations; track $index) {
+            <mat-option [value]="item.id">{{ item.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <textarea
+        formControlName="description"
+        class="w-full min-h-[188px] border rounded-md border-solid px-3 py-2 border-[#D0D5DD] outline-none mb-5"
+        placeholder="Enter a description..."
+      ></textarea>
+    </div>
+  </form>
+  <hr />
+  <div class="flex justify-between mt-5 gap-5">
+    <button
+      (click)="close()"
+      class="py-3 px-4 bg-transparent border rounded-md border-solid border-[#D0D5DD] hover:bg-gray-50 w-[372px]"
+    >
+      Cancel
+    </button>
+    <button
+      (click)="onSubmit()"
+      [disabled]="formGroupIdeas.invalid"
+      [class.opacity-60]="formGroupIdeas.invalid"
+      class="py-3 px-4 bg-green-500 w-[372px] border rounded-md hover:bg-green-600 text-white"
+    >
+      {{ idea ? 'Edit' : 'Add' }}
+    </button>
+  </div>
+</div>

@@ -9,6 +9,7 @@ export interface IIdea {
   title: string;
   description: string;
   image: IImage;
+  isSaved: boolean;
   category: ICategory;
   user: IUser;
   comments: IComment[];

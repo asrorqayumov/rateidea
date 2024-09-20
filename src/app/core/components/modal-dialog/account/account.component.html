@@ -1,0 +1,105 @@
+<div class="foont-gilroy modal {{ isUserDataLoading ? 'h-[300px]' : '' }} w-[400px] py-8 px-6">
+  <div class="flex justify-between w-full mb-5">
+    <div class="flex items-center gap-4">
+      <div>
+        <img class="h-11 w-11" src="images/accProfile.png" alt="" />
+      </div>
+      <div>
+        <p class="text-[#101828] text-lg !mb-0">Acc</p>
+        <span class="text-[#475467] text-sm">my profile</span>
+      </div>
+    </div>
+    <div mat-dialog-close class="w-[45px] cursor-pointer">
+      <img class="w-full" src="images/close.png" alt="" />
+    </div>
+  </div>
+  <hr />
+  @if (isUserDataLoading) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  } @else {
+    <form [formGroup]="formUpdateUserInfo" class="w-full" (ngSubmit)="submit()">
+      <div class="flex flex-col gap-1">
+        <label class="text-[#667085] text-sm font-medium" for="firstName">Name</label>
+        <mat-form-field class="example-full-width" [appearance]="'outline'">
+          <input formControlName="firstName" matInput placeholder="Name" />
+        </mat-form-field>
+      </div>
+      @if (
+        formUpdateUserInfo.controls['firstName'].touched &&
+        formUpdateUserInfo.controls['firstName'].hasError('required')
+      ) {
+        <mat-error class="mb-2 text-red-600 block">Name is <strong>required</strong></mat-error>
+      }
+
+      <div class="flex flex-col gap-1">
+        <label class="text-[#667085] text-sm font-medium" for="firstName">Surname</label>
+        <mat-form-field class="example-full-width !mb-0" [appearance]="'outline'">
+          <input formControlName="lastName" matInput placeholder="Name" />
+        </mat-form-field>
+      </div>
+      @if (
+        formUpdateUserInfo.controls['lastName'].touched && formUpdateUserInfo.controls['lastName'].hasError('required')
+      ) {
+        <mat-error class="mb-2 text-red-600 block">Surname is <strong>required</strong></mat-error>
+      }
+
+      <div class="flex flex-col gap-1">
+        <label class="text-[#667085] text-sm font-medium" for="username">Username</label>
+        <mat-form-field class="example-full-width" [appearance]="'outline'">
+          <input formControlName="username" matInput placeholder="Name" />
+        </mat-form-field>
+      </div>
+      @if (
+        formUpdateUserInfo.controls['username'].touched && formUpdateUserInfo.controls['username'].hasError('required')
+      ) {
+        <mat-error class="mb-2 text-red-600 block">Username is <strong>required</strong></mat-error>
+      }
+
+      <div class="flex flex-col gap-1">
+        <label class="text-[#667085] text-sm font-medium" for="email">Email</label>
+        <mat-form-field class="example-full-width" [appearance]="'outline'">
+          <input formControlName="email" type="email" matInput placeholder="Name" />
+        </mat-form-field>
+      </div>
+      @if (formUpdateUserInfo.controls['email'].touched && formUpdateUserInfo.controls['email'].hasError('required')) {
+        <mat-error class="mb-2 text-red-600 block">Email is <strong>required</strong></mat-error>
+      }
+      @if (formUpdateUserInfo.controls['email'].hasError('email')) {
+        <mat-error class="mb-2 text-red-600 block">Email is not <strong>valid !</strong></mat-error>
+      }
+
+      <div>
+        <label class="text-[#667085] text-sm font-medium" for="dateOfBirth">Date of birth</label>
+        <mat-form-field class="w-full" [appearance]="'outline'">
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="dateOfBirth"
+            (focus)="picker.open()"
+            placeholder="DD/MM/YYYY"
+          />
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <hr />
+      <div class="flex justify-between mt-5">
+        <button
+          mat-dialog-close
+          class="py-3 px-4 bg-transparent border rounded-md border-solid border-[#D0D5DD] w-[173px]"
+        >
+          Cancel
+        </button>
+        <button
+          [disabled]="formUpdateUserInfo.invalid"
+          [class.opacity-60]="formUpdateUserInfo.invalid"
+          class="py-3 px-4 bg-green-500 w-[173px] border rounded-md hover:bg-green-600 text-white"
+          type="submit"
+          [disabled]="formUpdateUserInfo.invalid"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  }
+</div>

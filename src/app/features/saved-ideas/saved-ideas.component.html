@@ -1,15 +1,21 @@
 <app-navbar />
-
-<mat-tab-group mat-align-tabs="start" [disableRipple]="true" mat-stretch-tabs="false" class="custom-mat-tab mt-5">
-  <mat-tab label="First"></mat-tab>
-  <mat-tab label="Second"></mat-tab>
+<mat-tab-group
+  (selectedTabChange)="onTabSwitch($event)"
+  mat-align-tabs="start"
+  [disableRipple]="true"
+  mat-stretch-tabs="false"
+  class="custom-mat-tab mt-5"
+>
+  @for (category of categories; track category.id) {
+    <mat-tab [label]="category.name"></mat-tab>
+  }
 </mat-tab-group>
 
 <div class="w-full flex flex-col bg-gray-100 py-6 px-12 rounded-[14px] mt-5">
   <h3 class="!text-[22px]">Saved ideas</h3>
   <div class="flex flex-col w-full">
-    @for (idea of savedIdeas; track idea.id) {
-      <app-idea class="my-1" [idea]="idea.idea" [index]="$index" />
+    @for (idea of ideas; track idea) {
+      <app-idea [idea]="idea" class="my-1" />
     }
   </div>
 </div>

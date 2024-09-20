@@ -7,6 +7,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { IIdea } from '@core/models/IIdea';
 import { IVote } from '@core/models/IVote';
 import { IdeasService } from '@core/services/ideas.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalIdeasComponent } from '@core/components/modal-dialog/modal-ideas/modal-ideas.component';
 
 @Component({
   selector: 'app-idea',
@@ -18,12 +20,12 @@ import { IdeasService } from '@core/services/ideas.service';
 export class IdeaComponent implements OnChanges, OnInit {
   authService = inject(AuthService);
   ideasService = inject(IdeasService);
+  dialog = inject(MatDialog);
 
   @Input() idea?: IIdea;
   @Input() index!: number;
   @Output() emitter = new EventEmitter();
 
-  isIdeaSaved = false;
   isOpened = false;
   currentUserId: number | undefined;
   votes?: { up: number; down: number };
@@ -61,20 +63,6 @@ export class IdeaComponent implements OnChanges, OnInit {
     });
   }
 
-  saveIdea(): void {
-    if (!this.idea?.id) {
-      console.error('Idea ID is undefined!');
-      return;
-    }
-    const data = { ideaId: this.idea?.id };
-
-    this.ideasService.saveIdeaRequest(data).subscribe((res) => {
-      if (res.statusCode == 200) {
-        this.isIdeaSaved = true;
-      }
-    });
-  }
-
   deleteIdea(): void {
     const confirmed = window.confirm('Haqiqatan ham ushbu g‘oyani o‘chirmoqchimisiz?');
 
@@ -91,6 +79,16 @@ export class IdeaComponent implements OnChanges, OnInit {
     this.votes = votes?.reduce((acc, vote) => ({ up: acc.up + vote.up, down: acc.down + vote.down }), {
       up: 0,
       down: 0,
+    });
+  }
+
+  editIdea(): void {
+    this.dialog.open(ModalIdeasComponent, { data: { clickedPlace: 'myideas', idea: this.idea } });
+  }
+
+  saveIdea(): void {
+    this.ideasService.saveIdea({ ideaId: this.idea!.id, isSaved: !this.idea!.isSaved }).subscribe((res) => {
+      this.idea!.isSaved = !this.idea!.isSaved;
     });
   }
 }

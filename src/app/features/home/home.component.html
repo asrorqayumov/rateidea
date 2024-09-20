@@ -15,7 +15,7 @@
 <div class="w-full flex flex-col bg-gray-100 py-6 px-12 rounded-[14px] mt-5">
   <h3 class="!text-[22px]">Fikrlar</h3>
   <div class="flex flex-col w-full">
-    @for (idea of ideas; track idea) {
+    @for (idea of ideas; track idea.id) {
       <app-idea [idea]="idea" [index]="$index" class="my-1" />
     }
   </div>
