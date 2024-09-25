@@ -1,3 +1,9 @@
+import {
+  GoogleSigninButtonModule,
+  SocialAuthService,
+  SocialLoginModule,
+  SocialUser,
+} from '@abacritt/angularx-social-login';
 import { Component, OnInit, inject } from '@angular/core';
 import {
   AbstractControl,
@@ -17,14 +23,26 @@ import { AuthService } from '@core/auth/services/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, RouterLink, ReactiveFormsModule],
+  imports: [
+    GoogleSigninButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    RouterLink,
+    ReactiveFormsModule,
+    SocialLoginModule,
+  ],
   templateUrl: './login.component.html',
-  styles: ``,
+  styleUrl: './login.component.css',
 })
 export default class LoginComponent implements OnInit {
   formBuilder = inject(FormBuilder);
   authService = inject(AuthService);
   router = inject(Router);
+  private SocialAuthService = inject(SocialAuthService);
+  user: SocialUser = new SocialUser();
+  loggedIn: boolean = false;
 
   form!: FormGroup;
 
@@ -32,6 +50,12 @@ export default class LoginComponent implements OnInit {
     this.form = this.formBuilder.group({
       emailOrUserName: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+
+    this.SocialAuthService.authState.subscribe((user) => {
+      console.log(user);
+      this.user = user;
+      this.loggedIn = user != null;
     });
   }
 

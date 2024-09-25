@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Output, inject, EventEmitter } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -14,6 +14,12 @@ import { AccountModalComponent } from '../modal-dialog/account/account.component
 })
 export class NavbarComponent {
   dialog = inject(MatDialog);
+  @Output() searchQuery = new EventEmitter();
+
+  onSearch(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.searchQuery.emit(input.value);
+  }
   openModal() {
     this.dialog.open(AccountModalComponent, {
       data: {

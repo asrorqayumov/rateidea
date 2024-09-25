@@ -48,3 +48,48 @@ body {
     }
   }
 }
+
+.google_auth_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
+.google_auth_wrapper p {
+  color: #98a2b3;
+  font-size: 16px;
+  position: relative;
+}
+.google_auth_wrapper p:before,
+.google_auth_wrapper p:after {
+  content: '';
+  width: 12vw;
+  height: 1px;
+  background-color: #98a2b3;
+  position: absolute;
+  top: 50%;
+}
+.google_auth_wrapper p:before {
+  right: 170%;
+}
+.google_auth_wrapper p:after {
+  left: 170%;
+}
+
+.dflex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav_search_input {
+  padding: 3px;
+  border-radius: 5px;
+  width: 30%;
+  outline: none;
+  font-size: 15px;
+}
+.nav_search_input::placeholder {
+  font-size: 15px;
+  padding-left: 10px;
+}

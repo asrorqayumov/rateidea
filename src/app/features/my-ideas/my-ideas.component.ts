@@ -15,9 +15,7 @@ import { ModalIdeasComponent } from '@core/components/modal-dialog/modal-ideas/m
 @Component({
   standalone: true,
   selector: 'app-my-ideas',
-
   imports: [NavbarComponent, MatTabGroup, MatTab, MatButtonModule, IdeaComponent, MatToolbarModule, MatIconModule],
-
   templateUrl: './my-ideas.component.html',
   styles: ``,
 })

@@ -8,6 +8,7 @@ import { CategoriesService } from '@core/services/categories.service';
 import { IdeasService } from '@core/services/ideas.service';
 import { IdeaComponent } from '@shared/components/idea/idea.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -20,17 +21,24 @@ export default class HomeComponent implements OnInit {
   categoriesService = inject(CategoriesService);
   authService = inject(AuthService);
   destroyRef = inject(DestroyRef);
-
   ideas?: IIdea[] = [];
+  filteredIdeas: IIdea[] = [];
   categories: ICategory[] = [];
+  searchQuery: string = '';
 
   ngOnInit(): void {
     this.getIdeas();
   }
 
+  onSearchIdeas(query: string) {
+    this.searchQuery = query;
+    this.applyFilters();
+  }
+
   getIdeas(): void {
     this.ideasService.getAllIdeas().subscribe((res) => {
       this.ideas = res.data;
+      this.filteredIdeas = this.ideas;
       this.categories = this.groupByCategory(this.ideas!);
     });
   }
@@ -61,5 +69,11 @@ export default class HomeComponent implements OnInit {
 
   onTabSwitch(event: MatTabChangeEvent): void {
     this.ideas = this.categories[event.index]?.ideas;
+    this.applyFilters();
+  }
+  applyFilters(): void {
+    this.filteredIdeas = (this.ideas || []).filter((idea) =>
+      idea.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+    );
   }
 }

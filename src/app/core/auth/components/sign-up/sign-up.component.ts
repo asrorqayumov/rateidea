@@ -18,11 +18,13 @@ import { AuthService } from '@core/auth/services/auth.service';
 import { DatePipe } from '@angular/common';
 import { SnackBarService } from '@core/services/snackbar.service';
 import { SnackbarType } from '@core/models/Snackbar';
+import { GoogleSigninButtonModule, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
   imports: [
+    GoogleSigninButtonModule,
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
@@ -41,6 +43,9 @@ export default class SignUpComponent implements OnInit {
   datePipe = inject(DatePipe);
   router = inject(Router);
   snackbarService = inject(SnackBarService);
+  private SocialAuthService = inject(SocialAuthService);
+  user: SocialUser = new SocialUser();
+  loggedIn: boolean = false;
 
   form!: FormGroup;
 
@@ -56,6 +61,12 @@ export default class SignUpComponent implements OnInit {
     });
 
     this.form.get('confirmPassword')?.setValidators([Validators.required, this.passwordMatchValidator.bind(this)]);
+
+    this.SocialAuthService.authState.subscribe((user) => {
+      console.log(user);
+      this.user = user;
+      this.loggedIn = user != null;
+    });
   }
 
   onSubmit(): void {

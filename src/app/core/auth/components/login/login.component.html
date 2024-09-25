@@ -18,6 +18,29 @@
       </div>
 
       <button class="w-full" type="submit" color="primary" mat-flat-button [disabled]="form.invalid">Login</button>
+      <div class="google_auth_wrapper">
+        <p>or</p>
+        <div class="google_authentication">
+          <div
+            id="g_id_onload"
+            data-client_id="814933593809-l579e218htn37mq5rirdafidqqoqdlaj.apps.googleusercontent.com"
+            data-context="signup"
+            data-ux_mode="popup"
+            data-login_uri="http://localhost:4200/login"
+            data-itp_support="true"
+          ></div>
+
+          <div
+            class="g_id_signin"
+            data-type="standard"
+            data-shape="rectangular"
+            data-theme="outline"
+            data-text="signin_with"
+            data-size="large"
+            data-logo_alignment="left"
+          ></div>
+        </div>
+      </div>
 
       <p class="w-full flex justify-center !mt-[22px]">
         Don't you have an account?
